@@ -1,37 +1,43 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+// Creating a node
+struct node {
+  int value;
+  struct node *next;
+};
+
+// print the linked list value
+void printLinkedlist(struct node *p) {
+  while (p != NULL) {
+    printf("%d ", p->value);
+    p = p->next;
+  }
+}
 
 int main() {
-   int low, high, i, flag;
-   printf("Enter two numbers(intervals): ");
-   scanf("%d %d", &low, &high);
-   printf("Prime numbers between %d and %d are: ", low, high);
+  // Initialize nodes
+  struct node *head;
+  struct node *one = NULL;
+  struct node *two = NULL;
+  struct node *three = NULL;
 
-   // iteration until low is not equal to high
-   while (low < high) {
-      flag = 0;
+  // Allocate memory
+  one = malloc(sizeof(struct node));
+  two = malloc(sizeof(struct node));
+  three = malloc(sizeof(struct node));
 
-      // ignore numbers less than 2
-      if (low <= 1) {
-         ++low;
-         continue;
-      }
+  // Assign value values
+  one->value = 1;
+  two->value = 2;
+  three->value = 3;
 
-      // if low is a non-prime number, flag will be 1
-      for (i = 2; i <= low / 2; ++i) {
+  // Connect nodes
+  one->next = two;
+  two->next = three;
+  three->next = NULL;
 
-         if (low % i == 0) {
-            flag = 1;
-            break;
-         }
-      }
-
-      if (flag == 0)
-         printf("%d ", low);
-
-      // to check prime for the next number
-      // increase low by 1
-      ++low;
-   }
-
-   return 0;
+  // printing node-value
+  head = one;
+  printLinkedlist(head);
 }
